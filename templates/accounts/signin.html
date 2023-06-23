@@ -7,19 +7,36 @@
         <form>
             <h2 class="text-center">Sign In</h2>
             <hr>
+			
+			{% if messages %}
+				{% for msg in messages %}
+				<div style="border: 2px solid black ; margin: 15px"> 
+
+						{{ msg }}
+
+					</div>
+
+
+				{% endfor %}
+
+
+			{% endif %}
+
+
+
 
             <div class="form-group">
                 <label for="inputUsername">Username</label>
-                <input type="text" class="form-control" id="inputUsername" placeholder="" required>
+                <input name="username" type="text" class="form-control" id="inputUsername" placeholder="" required>
             </div>
             <div class="form-group">
                 <label for="inputPassword">Password</label>
-                <input type="password" class="form-control" id="inputPassword" required>
+                <input name="password" type="password" class="form-control" id="inputPassword" required>
             </div>
 
             <div class="form-group">
                 <div class="pretty p-svg p-curve p-jelly">
-                    <input type="checkbox" id="inputTerms" />
+                    <input name="rme" type="checkbox" id="inputTerms" />
                     <div class="state p-warning">
                         <!-- svg path -->
                         <svg class="svg svg-icon" viewBox="0 0 20 20">
