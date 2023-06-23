@@ -1,0 +1,49 @@
+body {
+	background-color: #FAEBD7;
+}
+
+#header {
+	background-color: #7A232D;
+}
+
+#head {
+	font-weight: 500 !important;
+	color: #FAEBD7 !important;
+}
+
+.module h2, .module caption, .inline-group h2 {
+	background-color: #7A232D;
+}
+
+h1 {
+	color: #7A232D;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+
+div.breadcrumbs {
+	background-color: rgba(166, 99, 99, 0.504);
+	color: FAEBD7;
+}
+
+.logo-brand {
+	width: 40px;
+	height: 40px;
+	transition: 0.5s;
+}
+
+.logo-brand:hover {
+	transform: rotate(360deg);
+}
+
+.button.default, input[type="submit"].default, .submit-row input.default,
+.button, input[type="submit"], input[type="button"], .submit-row input, a.button {
+	background-color: #7A232D;
+}
+
+
+
+.button:active, input[type="submit"]:active, input[type="button"]:active, .button:focus, input[type="submit"]:focus, input[type="button"]:focus, .button:hover, input[type="submit"]:hover, input[type="button"]:hover, input[type="submit"].default:hover {
+	background-color:rgba(165, 83, 83, 0.504);
+}
