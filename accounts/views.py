@@ -5,7 +5,9 @@ from django.contrib import messages
 
 def signin(request):
     if request.GET:
-        messages.info(request , "hello user 1")
+        messages.info(request , "Testing Message 1")
+        messages.success(request, "Testing Message 2")
+        messages.error(request , " Message Error ")
     return render(request , 'accounts/signin.html')
 
 
