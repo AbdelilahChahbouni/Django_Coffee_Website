@@ -5,16 +5,18 @@ from django.contrib import messages
 
 def signin(request):
     if request.GET:
-        messages.info(request , "Testing Message 1")
-        messages.success(request, "Testing Message 2")
-        messages.error(request , " Message Error ")
+        messages.info(request , "Testing Message 1 From sigin")
     return render(request , 'accounts/signin.html')
 
 
 
 def signup(request):
+    if request.GET:
+        messages.info(request , "Testing Message 1 From Signup")
     return render(request , 'accounts/signup.html')
 
 
 def profile(request):
+    if request.GET:
+        messages.info(request , "Testing Message 1 FRom Profile")
     return render(request , 'accounts/profile.html')
