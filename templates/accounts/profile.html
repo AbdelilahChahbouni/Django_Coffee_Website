@@ -5,7 +5,8 @@
 {% block content %}
 
 	<div class="my-form container p-5 my-5 rounded border border-warning">
-        <form>
+        <form method="POST">
+			{% csrf_token %}
             <h2 class="text-center">Profile</h2>
             <hr>
 			{% include 'partials/_alerts.html'%}
@@ -58,7 +59,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-warning">Save Changes</button>
+            <button type="submit" name="btn-profile" class="btn btn-warning">Save Changes</button>
         </form>
 
 
