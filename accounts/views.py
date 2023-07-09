@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.models import User
+from django.contrib import auth
 import re
 
 
@@ -18,16 +19,24 @@ def signin(request):
         new_user = auth.authenticate(username=username , password=password)
         
         if new_user is not None:
+            if "rme" not in request.POST:
+                request.session.set_expiry(0)
             auth.login(request , new_user)
+            #messages.success(request , "You Are Logged in ")
         else:
-            pass
+            messages.error(request , "Your Username or Password Invalid ")
+
+        
 
 
         return redirect("signin")
     else:
         return render(request , 'accounts/signin.html')
 
-
+def logout(request):
+    if request.user.is_authenticated:
+        auth.logout(request)
+    return redirect("index")
 
 def signup(request):
     if request.method == "POST" and "btn-signup" in request.POST:
