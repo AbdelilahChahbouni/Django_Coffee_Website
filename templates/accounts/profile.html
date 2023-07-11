@@ -5,62 +5,70 @@
 {% block content %}
 
 	<div class="my-form container p-5 my-5 rounded border border-warning">
+        <h2 class="text-center">Profile</h2>
+        <hr>
+		{% if request.user.is_authenticated %}
         <form method="POST">
 			{% csrf_token %}
-            <h2 class="text-center">Profile</h2>
-            <hr>
 			{% include 'partials/_alerts.html'%}
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputFirstName">First Name</label>
-                    <input name="fname" type="text" class="form-control" id="inputFirstName" required>
+					<input value="{{ fname }}" name="fname" type="text" class="form-control" id="inputFirstName" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputLastName">Last Name</label>
-                    <input name="lname" type="text" class="form-control" id="inputLastName" required>
+					<input value="{{ lname }}" name="lname" type="text" class="form-control" id="inputLastName" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="inputAddress">Address</label>
-                <input name="address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+				<input value="{{ address1 }}" name="address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
             </div>
             <div class="form-group">
                 <label for="inputAddress2">Address 2</label>
-                <input name="address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" required>
+				<input value="{{ address2 }}" name="address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" required>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputCity">City</label>
-                    <input name="city" type="text" class="form-control" id="inputCity" required>
+					<input value="{{ city }}" name="city" type="text" class="form-control" id="inputCity" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputZip">State</label>
-                    <input name="state" type="text" class="form-control" id="inputZip" required>
+					<input value="{{ state }}" name="state" type="text" class="form-control" id="inputZip" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputZip">Zip</label>
-                    <input name="zip" type="text" class="form-control" id="inputZip" placeholder="11111" required>
+					<input value="{{ zip }}" name="zip" type="text" class="form-control" id="inputZip" placeholder="11111" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputEmail">Email</label>
-                <input name="email" type="email" class="form-control-plaintext border border-warning rounded" id="inputEmail" placeholder="name@example.com" required>
+				<input value="{{ email }}" name="email" type="email" class="form-control-plaintext border border-warning rounded" id="inputEmail" placeholder="name@example.com" required>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputUsername">Username</label>
-                    <input name="user" type="text" class="form-control-plaintext border border-warning rounded" id="inputUsername" placeholder="ahmed" required>
+					<input value="{{ user }}" name="user" type="text" class="form-control-plaintext border border-warning rounded" id="inputUsername" placeholder="ahmed" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword">Password</label>
-                    <input name="pass" type="password" class="form-control" id="inputPassword" required>
+					<input value="{{ pass }}" name="pass" type="password" class="form-control" id="inputPassword" required>
                 </div>
             </div>
 
             <button type="submit" name="btn-profile" class="btn btn-warning">Save Changes</button>
         </form>
+		{% else %}
+
+		<h4> You musst Be Logged in </h4>
+        <a href="{% url 'signin' %}" name="btn-profile" class="btn btn-warning">Log in</a>
+
+
+		{% endif %}
 
 
     </div>

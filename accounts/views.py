@@ -146,6 +146,25 @@ def signup(request):
 
 def profile(request):
     if request.method == "POST" and "btn-profile" in request.POST:
-        messages.info(request ,"this is post query From Profile Page")
         return redirect("profile")
-    return render(request , 'accounts/profile.html')
+    else:
+        if request.user is not None:
+            #if request.user.is_anonymous: return redirect("index")
+            #if request.user.id == None: return redirect("index")
+            context = None
+            if not request.user.is_anonymous:
+                userprofile = UserProfile.objects.get(user=request.user)
+                context = {
+                    'fname': request.user.first_name,
+                    'lname': request.user.last_name,
+                    'user' : request.user.username,
+                    'address1': userprofile.address,
+                    'address2': userprofile.address2,
+                    'state' : userprofile.state,
+                    'city' : userprofile.city,
+                    'zip' : userprofile.zip_number,
+                    'pass' : request.user.password,
+                    'email': request.user.email,
+                    
+                    }
+            return render(request , 'accounts/profile.html' , context)
