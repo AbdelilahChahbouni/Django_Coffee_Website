@@ -146,6 +146,27 @@ def signup(request):
 
 def profile(request):
     if request.method == "POST" and "btn-profile" in request.POST:
+        if request.user is not None and request.user.id != None:
+            userprofile = UserProfile.objects.get(user=request.user)
+            if request.POST['fname'] and request.POST['lname'] and request.POST['user'] and request.POST['pass'] and request.POST['email'] and request.POST['address'] and request.POST['address2'] and request.POST['city'] and request.POST['state'] and request.POST['zip']:
+                request.user.first_name = request.POST['fname']
+                request.user.last_name = request.POST['lname']
+                #request.user.email = request.POST['email']
+                #request.user.username = request.POST['user']
+                userprofile.address = request.POST['address']
+                userprofile.address2 = request.POST['address2']
+                userprofile.city = request.POST['city']
+                userprofile.state = request.POST['state']
+                userprofile.zip_number = request.POST['zip']
+                if not request.POST['pass'].startswith("pbkdf2_sha256"):
+                    request.user.set_password(request.POST['pass'])
+                request.user.save()
+                userprofile.save()
+                auth.login(request , request.user)
+                messages.success(request, "your data has been saved")
+            else:
+                messages.error(request , "the values and elements invalid")
+
         return redirect("profile")
     else:
         if request.user is not None:
