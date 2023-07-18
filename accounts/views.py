@@ -3,6 +3,7 @@ from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib import auth
+from allproducts.models import Product
 import re
 
 
@@ -189,3 +190,12 @@ def profile(request):
                     
                     }
             return render(request , 'accounts/profile.html' , context)
+
+
+def product_favorite(request , pro_id):
+    if request.user.is_authenticated and not request.user.is_anonymous:
+        pro_fav = Product.objects.get(pk = pro_id) 
+        if Userprofile.objects.filter(user=request.user , product_favorite= pro_fav).exists():
+            messages.success(request, "the product already in the list favorite")
+        else:
+            pass
