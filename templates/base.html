@@ -2,7 +2,7 @@
 <!Doctype html>
 <html> 
 	<head> 
-		<title> My Coffee Website </title>
+		<title> My Coffee {% block title %} {%endblock%} </title>
 		<meta charset='utf-8'/>
 		<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
