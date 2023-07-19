@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib import auth
-from allproducts.models import Product
+from allproducts.models import product
 import re
 
 
@@ -194,8 +194,14 @@ def profile(request):
 
 def product_favorite(request , pro_id):
     if request.user.is_authenticated and not request.user.is_anonymous:
-        pro_fav = Product.objects.get(pk = pro_id) 
-        if Userprofile.objects.filter(user=request.user , product_favorite= pro_fav).exists():
+        pro_fav = product.objects.get(pk = pro_id) 
+        if UserProfile.objects.filter(user=request.user , product_favorite= pro_fav).exists():
             messages.success(request, "the product already in the list favorite")
         else:
-            pass
+            userprofile = UserProfile.objects.get(user=request.user)
+            userprofile.product_favorite.add(pro_fav)
+            messages.success(request , "The product has been favorited")
+
+    else:
+        messages.error(request , "You must Be logged in ")
+    return redirect('/allproducts/' + str(pro_id))
