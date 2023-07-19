@@ -205,3 +205,10 @@ def product_favorite(request , pro_id):
     else:
         messages.error(request , "You must Be logged in ")
     return redirect('/allproducts/' + str(pro_id))
+
+
+def get_favorite_products(request):
+    userprofile = UserProfile.objects.get(user=request.user)
+    data = userprofile.product_favorite.all()
+    context = {"pro_fav" : data}
+    return render(request , 'accounts/products_favorite.html' , context)
