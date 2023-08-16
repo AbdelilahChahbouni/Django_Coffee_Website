@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.models import User
@@ -193,22 +193,39 @@ def profile(request):
 
 
 def product_favorite(request , pro_id):
+    context = None
+    state= False
     if request.user.is_authenticated and not request.user.is_anonymous:
-        pro_fav = product.objects.get(pk = pro_id) 
+        pro_fav = product.objects.get(pk = pro_id)
+        print(pro_fav.id)
         if UserProfile.objects.filter(user=request.user , product_favorite= pro_fav).exists():
             messages.success(request, "the product already in the list favorite")
+            #state=False
+            #userprofile = UserProfile.objects.get(user=request.user)
+            #userprofile.product_favorite.filter(id=pro_fav.id).delete()
+            
+
         else:
             userprofile = UserProfile.objects.get(user=request.user)
             userprofile.product_favorite.add(pro_fav)
             messages.success(request , "The product has been favorited")
+            #state = True
 
     else:
         messages.error(request , "You must Be logged in ")
-    return redirect('/allproducts/' + str(pro_id))
+    context = {
+            "state": state,
+            'prod':get_object_or_404(product , pk=pro_id)
+
+            }
+    #return redirect('/allproducts/' + str(pro_id) , context)
+    return render(request ,"allproducts/product.html",context)
 
 
 def get_favorite_products(request):
-    userprofile = UserProfile.objects.get(user=request.user)
-    data = userprofile.product_favorite.all()
-    context = {"pro_fav" : data}
-    return render(request , 'accounts/products_favorite.html' , context)
+    context = None
+    if request.user.is_authenticated and not request.user.is_anonymous:
+        userprofile = UserProfile.objects.get(user=request.user)
+        data = userprofile.product_favorite.all()
+        context = {"products" : data}
+    return render(request , 'allproducts/allproducts.html' , context)
