@@ -8,7 +8,7 @@ from django.utils import timezone
 class Order(models.Model):
     user = models.ForeignKey(User , on_delete=models.CASCADE)
     order_date = models.DateTimeField(default= timezone.now())
-    details = models.ManyToMany(product , through= 'OrderDetails')
+    details = models.ManyToManyField(product , through= 'OrderDetails')
     is_done = models.BooleanField() 
 
 
