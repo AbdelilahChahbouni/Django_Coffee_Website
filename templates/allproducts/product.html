@@ -27,7 +27,51 @@
                             <hr>
 							<p class="card-text">Current Price <span id="price" class="bg-dark text-light rounded-circle p-2">${{ prod.price }}</span></p>
                             <hr>
-                            <button type="submit" class="btn btn-warning">Add To Cart</button>
+                            <button type="button" class="btn btn-warning"  data-toggle="modal" data-target="#exampleModal">Add To Cart</button>
+							
+			
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Select Quantity</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<div class="form-group">
+           <label for="inputUsername">Quantity</label>
+          <input name="Qty" type="text" class="form-control"  required>
+       </div>
+ 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+			
+
+			
+
+
+
+
+
+
+
+
+
+
+
 							{% if state %}
 								<a href="{% url 'product_favorite' pro_id=prod.id %}" type="submit" class="btn btn-warning text-white" style="background-color: red">
 							{% else %}
