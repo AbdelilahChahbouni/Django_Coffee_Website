@@ -45,6 +45,8 @@
 						<div class="dropdown-divider"></div>
 						<a href="{% url 'get_favorite_products' %}" class="dropdown-item">Products Favorites</a>
 						<div class="dropdown-divider"></div>
+						<a href="{% url 'show_cart' %}" class="dropdown-item">Show Cart</a>
+						<div class="dropdown-divider"></div>
 						<a href="{% url 'logout' %}" class="dropdown-item"> Logout </a>
 					{% else %}
 						<a class="dropdown-item" href="{% url 'signin' %}">Sign in</a>
