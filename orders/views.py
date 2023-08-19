@@ -11,9 +11,13 @@ def add_to_cart(request):
         pro_id = request.GET['pro_id']
         qty = request.GET['qty']
         order_state = Order.objects.all().filter(user=request.user, is_done=False)
+        if not product.objects.all().filter(id = pro_id).exists():
+            return redirect("allproducts")
         pro = product.objects.get(id=pro_id)
         if order_state:
-            messages.success(request, 'this order is done')
+            old_order = Order.objects.get(user=request.user , is_done=False)
+            order_details = OrderDetails.objects.create(product=pro , order=old_order , price=pro.price , quantity=qty)
+            messages.success(request, 'was is added To cart for old order')
         else:
             new_order = Order()
             new_order.user = request.user
@@ -22,13 +26,6 @@ def add_to_cart(request):
             new_order.save()
 
             order_datails = OrderDetails.objects.create(product=pro , order=new_order , price=pro.price , quantity=qty)
-        
-
-
-
-
-
-
             messages.success(request, 'this order will be done')
 
         return redirect('/allproducts/' + request.GET['pro_id'])
