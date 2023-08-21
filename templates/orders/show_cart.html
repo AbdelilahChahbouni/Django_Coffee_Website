@@ -10,6 +10,8 @@
            <h2 class="text-center">Show Cart</h2>
 		   <hr>
 		   {% if order %}
+		   <h4>Full Name : {{order.user.first_name}} {{order.user.last_name}}</h4>
+		   <hr>
 		   <h4> Order Number : {{ order.id }} With Total {{ total_price }} $</h4>
 		   <hr>
 <table class="table table-striped-columns table-bordered table-hover">
@@ -22,6 +24,7 @@
       <th scope="col">Quantity</th>
       <th scope="col">Total Price</th>
       <th scope="col">State</th>
+      <th scope="col">Control</th>
 
     </tr>
   </thead>
@@ -39,8 +42,12 @@
 	  {% else %}
 	  <td style="color:red">Not Done </td>
 	  {% endif %}
+	<td> 
+   
+  <a href="{% url 'remove_from_cart' orderdetails_id=item.id %}" class="btn btn-sm btn-outline-danger">Remove</a>
+   
+  </td>
     </tr>
-    <tr>
 		{% endfor %}
   </tbody>
 </table>

@@ -52,5 +52,9 @@ def show_cart(request):
     return render(request , "orders/show_cart.html" , context)
 
 
-
+def remove_from_cart(request , orderdetails_id):
+    if request.user.is_authenticated and not request.user.is_anonymous and orderdetails_id:
+        removed_order = OrderDetails.objects.get(id=orderdetails_id)
+        removed_order.delete()
+        return redirect("show_cart")
 
