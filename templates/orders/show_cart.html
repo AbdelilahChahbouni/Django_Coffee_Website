@@ -9,7 +9,7 @@
 <div class="my-form container p-5 my-5 rounded border border-warning">
            <h2 class="text-center">Show Cart</h2>
 		   <hr>
-		   {% if order %}
+	{% if order %}
 		   <h4>Full Name : {{order.user.first_name}} {{order.user.last_name}}</h4>
 		   <hr>
 		   <h4> Order Number : {{ order.id }} With Total {{ total_price }} $</h4>
@@ -29,30 +29,37 @@
     </tr>
   </thead>
   <tbody class="table-group-divider">
+
 	  {% for item in order_details%}
     <tr>
       <th scope="row">{{forloop.counter}}</th>
       <td>{{item.product}}</td>
       <td><img src="{{ item.product.image.url }}" style="width:80px;height:80px"></td>
       <td>{{item.price}} $</td>
-      <td>{{item.quantity}}</td>
+
+
+      <td>
+		  	<a href="{% url 'sub_qty' orderdetails_id=item.id %}" class="btn btn-outline-warning btn-sm">-</a>
+		  	{{item.quantity}}
+		  	<a href="{% url 'add_qty' orderdetails_id=item.id %}" class="btn btn-outline-warning btn-sm">+</a>
+	  	</td>
       <td>{{ item.quantity|mul:item.price }} $</td>
 	  {% if item.order.is_done %}
       <td style="color:green">Done</td>
 	  {% else %}
 	  <td style="color:red">Not Done </td>
 	  {% endif %}
-	<td> 
-   
-  <a href="{% url 'remove_from_cart' orderdetails_id=item.id %}" class="btn btn-sm btn-outline-danger">Remove</a>
-   
+	<td> <a href="{% url 'remove_from_cart' orderdetails_id=item.id %}" class="btn btn-sm btn-outline-danger">Remove</a>
   </td>
+  
     </tr>
+    {% empty %}
+    <h4 class="alert alert-warning"> No Orders Here </h4>
 		{% endfor %}
   </tbody>
 </table>
-	{% else %}
-	<h4 class="alert alert-warning"> No Orders Here </h4>
+	
+	
 	{% endif %}
 </div>
 
