@@ -55,15 +55,17 @@ def show_cart(request):
 def remove_from_cart(request , orderdetails_id):
     if request.user.is_authenticated and not request.user.is_anonymous and orderdetails_id:
         removed_order = OrderDetails.objects.get(id=orderdetails_id)
-        removed_order.delete()
+        if removed_order.order.user.id == request.user.id:
+            removed_order.delete()
         return redirect("show_cart")
 
 
 def add_qty(request , orderdetails_id):
     if request.user.is_authenticated and not request.user.is_anonymous and orderdetails_id:
         my_orderdetails =OrderDetails.objects.get(id=orderdetails_id)
-        my_orderdetails.quantity += 1
-        my_orderdetails.save()
+        if my_orderdetails.order.user.id == request.user.id:
+            my_orderdetails.quantity += 1
+            my_orderdetails.save()
     return redirect("show_cart")
 
 
@@ -71,9 +73,10 @@ def add_qty(request , orderdetails_id):
 def sub_qty(request,orderdetails_id):
     if request.user.is_authenticated and not request.user.is_anonymous and orderdetails_id:
         orderdetails =OrderDetails.objects.get(id=orderdetails_id)
-        if orderdetails.quantity > 1:
-            orderdetails.quantity -= 1
-            orderdetails.save()
+        if orderdetails.order.user.id == request.user.id:
+            if orderdetails.quantity > 1:
+                orderdetails.quantity -= 1
+                orderdetails.save()
     return redirect("show_cart")
 
 
