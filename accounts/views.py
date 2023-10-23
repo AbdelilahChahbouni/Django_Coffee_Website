@@ -30,7 +30,7 @@ def signin(request):
         
 
 
-        return redirect("signin")
+        return redirect("index")
     else:
         return render(request , 'accounts/signin.html')
 
