@@ -16,7 +16,13 @@ def add_to_cart(request):
         pro = product.objects.get(id=pro_id)
         if order_state:
             old_order = Order.objects.get(user=request.user , is_done=False)
-            order_details = OrderDetails.objects.create(product=pro , order=old_order , price=pro.price , quantity=qty)
+            if OrderDetails.objects.all().filter(order=old_order , product=pro):
+                order_detail = OrderDetails.objects.get(order=old_order,product=pro)
+                order_detail.quantity += int(qty)
+                order_detail.save()
+            else:
+                order_details = OrderDetails.objects.create(product=pro , order=old_order , price=pro.price , quantity=qty)
+
             messages.success(request, 'was is added To cart for old order')
         else:
             new_order = Order()
