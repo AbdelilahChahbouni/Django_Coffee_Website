@@ -15,9 +15,9 @@
     <a href="{% url 'signin' %}" style="color: red">Logged in </a>
   </h4>
 	{% elif order %}
-		   <h4>Full Name : {{order.user.first_name}} {{order.user.last_name}}</h4>
+		   <h4 >Full Name : {{order.user}} </h4>
 		   <hr>
-		   <h4> Order Number : {{ order.id }} With Total {{ total_price }} $</h4>
+		   <p> Order Number : <span>{{ order.id }}</span>   With Total : <span class="my-num">{{ total_price }} $</span> Products : <span class="my-num">{{order_details.count}}</span> </p>
 		   <hr>
 <table class="table table-striped-columns table-bordered table-hover">
   <thead class="table-dark">
