@@ -6,7 +6,13 @@
             <h2 class="text-center">Checkout</h2>
             <hr>
 			{% include 'partials/_alerts.html' %}
-			{% if is_added == True %}
+            {% if not request.user.is_authenticated or request.user.is_anonymous %}
+            <h5>
+                You must be 
+                <a href="{% url 'signin' %}" style="color:red;font-weight: bold;">Logged in</a>
+            </h5>
+            {% else %}
+            {% if is_added == True %}
 
 			<form method="POST" style="display: none">
 
@@ -45,6 +51,7 @@
             <button type="submit" name="btn-payment" class="btn btn-warning">Payment</button>
         </form>
 
+            {% endif %}
     </div>
 
 

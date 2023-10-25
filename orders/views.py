@@ -91,3 +91,6 @@ def sub_qty(request,orderdetails_id):
     return redirect("show_cart")
 
 
+
+def payment(request):
+    return render(request , "orders/payment.html")

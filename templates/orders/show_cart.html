@@ -15,7 +15,11 @@
     <a href="{% url 'signin' %}" style="color: red">Logged in </a>
   </h4>
 	{% elif order %}
-		   <h4 >Full Name : {{order.user}} </h4>
+		   <h4 >Full Name : {{order.user}} 
+       <a href="{% url 'allproducts' %}" class="btn btn-outline-warning float-right ml1">Continue Shoping</a>
+       <a href="{% url 'payment' %}" class="btn btn-outline-secondary float-right m1">Checkout</a>
+       <br>
+      </h4>
 		   <hr>
 		   <p> Order Number : <span>{{ order.id }}</span>   With Total : <span class="my-num">{{ total_price }} $</span> Products : <span class="my-num">{{order_details.count}}</span> </p>
 		   <hr>
