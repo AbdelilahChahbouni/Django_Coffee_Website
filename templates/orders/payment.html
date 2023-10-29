@@ -11,17 +11,29 @@
                 You must be 
                 <a href="{% url 'signin' %}" style="color:red;font-weight: bold;">Logged in</a>
             </h5>
+
+            {% elif not order %}
+                <h4> No orders Here </h4>
             {% else %}
-            {% if is_added == True %}
+                {% if is_added == True %}
 
 			<form method="POST" style="display: none">
 
-			{% else %}
+			    {% else %}
 				
 				<form method="POST">
 
-			{% endif %}
+			    {% endif %}
 			{% csrf_token %}
+            
+            Order :{{order.id}}
+            <hr>
+            Product Count : {{order_details.count}}
+            <hr>
+            Total Amount : {{total_price}}$
+            <hr>
+            <a href="{% url 'show_cart' %}" class="btn btn-secondary">Cart Details</a>
+            <hr>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputShipaddress">Shipment Address</label>

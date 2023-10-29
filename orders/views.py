@@ -93,4 +93,18 @@ def sub_qty(request,orderdetails_id):
 
 
 def payment(request):
-    return render(request , "orders/payment.html")
+    context = None
+    if request.user.is_authenticated and not request.user.is_anonymous:
+        if Order.objects.all().filter(user=request.user , is_done=False):
+            order = Order.objects.get(user=request.user, is_done=False)
+            order_details = OrderDetails.objects.all().filter(order=order)
+            total_price = 0
+            for item in order_details:
+                total_price += item.price * item.quantity
+            context = {
+                    'order': order,
+                    'order_details': order_details,
+                    'total_price' : total_price,
+
+                    }
+    return render(request , "orders/payment.html" , context)
