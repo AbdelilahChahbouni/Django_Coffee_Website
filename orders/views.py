@@ -94,7 +94,25 @@ def sub_qty(request,orderdetails_id):
 
 def payment(request):
     context = None
-    if request.user.is_authenticated and not request.user.is_anonymous:
+    ship_address = None
+    ship_phone = None
+    code_number = None
+    expire = None
+    security_code = None
+
+    if request.method =='POST' and 'btn-payment' in request.POST:
+        
+
+        context = {
+            'ship_address' : ship_address,
+            'ship_phone' : ship_phone,
+            'code_number' : code_number,
+            'expire' : expire,
+            'security_code' : security_code,
+        }
+
+
+    else request.user.is_authenticated and not request.user.is_anonymous:
         if Order.objects.all().filter(user=request.user , is_done=False):
             order = Order.objects.get(user=request.user, is_done=False)
             order_details = OrderDetails.objects.all().filter(order=order)
