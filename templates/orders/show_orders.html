@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% block title %} | Show Orders {% endblock %}
+
+
+{% block content %} 
+
+<div class="my-form container p-5 my-5 rounded border border-warning">
+           <h2 class="text-center">Show Orders</h2>
+		   <hr>
+  {% if not request.user.is_authenticated or request.user.is_anonymous %}
+  <h4 class="alert alert-warning">
+    You Must Be 
+    <a href="{% url 'signin' %}" style="color: red">Logged in </a>
+  </h4>
+	{% elif order %}
+    {{all_orders}}
+
+    {% else %}
+
+    <h4 class="alert alert-warning"> No Orders Here </h4>
+	
+	{% endif %}
+</div>
+
+{% endblock %}
