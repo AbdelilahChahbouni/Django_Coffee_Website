@@ -13,8 +13,53 @@
     You Must Be 
     <a href="{% url 'signin' %}" style="color: red">Logged in </a>
   </h4>
-	{% elif order %}
-    {{all_orders}}
+	{% elif all_orders %}
+        {% if all_orders.count > 0 %}
+        <table class="table table-striped-columns table-bordered table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">Order Number</th>
+                <th scope="col">Date & Time</th>
+                <th scope="col">Item Count </th>
+                <th scope="col">Total Price</th>
+                <th scope="col">is_done</th>  
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+        {% endif %}
+        {% for order in all_orders %}
+                <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.order_date}}</td>
+                <td>{{order.items_counter}}</td>
+                <td>{{order.total}}</td>
+                <td>
+                    {% if order.is_done == True %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+
+                </td>
+                </tr>
+        {% endfor %}
+
+
+
+
+        {% if all_orders.count > 0 %}
+            </tbody>
+            </table>
+        {% endif %}
+
+
+
+
+
+
+
+
 
     {% else %}
 

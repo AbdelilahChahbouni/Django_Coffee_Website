@@ -11,6 +11,8 @@ class Order(models.Model):
     order_date = models.DateTimeField(default= timezone.now())
     details = models.ManyToManyField(product , through= 'OrderDetails')
     is_done = models.BooleanField() 
+    total = 0
+    items_counter = 0
 
 
     def __str__(self):

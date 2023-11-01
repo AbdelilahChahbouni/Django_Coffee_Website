@@ -152,12 +152,15 @@ def show_orders(request):
     context= None
     if request.user.is_authenticated and not request.user.is_anonymous:
         all_orders = Order.objects.all().filter(user=request.user)
-        if all_orders:
-            order = Order.objects.get(user=request.user, is_done=True)
+        for x in all_orders:
+            order = Order.objects.get(id = x.id)
             order_details = OrderDetails.objects.all().filter(order=order)
             total_price = 0
             for item in order_details:
                 total_price += item.price * item.quantity
+
+            x.total = total_price
+            x.items_counter = order_details.count
     
-    context = {"all_orders" : all_orders, 'order' : order}
+    context = {"all_orders" : all_orders}
     return render(request, 'orders/show_orders.html' , context)
