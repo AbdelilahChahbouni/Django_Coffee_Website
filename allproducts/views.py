@@ -9,7 +9,7 @@ def allproducts(request):
     prod = myproduct.objects.all()
     # configure Paginator stack
     page = request.GET.get('page', 1)
-    paginator = Paginator(prod, 2)
+    paginator = Paginator(prod, 30)
     cs = None
     if "cs_state" in request.GET:
         cs = request.GET["cs_state"]

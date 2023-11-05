@@ -70,16 +70,16 @@
       <!--new product-->
       <section>
 		  <h1 class="text-center">Latest products</h1>
-        <div class="container">
+        <div class="container-fluid">
           <div class="row p-5" style="padding-left: 17% !important;">
 	  {% for pro in products|slice:":6" %}
             <div>
-              <div class="card m-2" style="width: 18rem;":>
-				  <img src="{{ pro.image.url }}" class="card-img-top" alt="...">
-                <div class="card-body">
+              <div class="card m-2 " style="width: 18rem;height:530px;":>
+				  <img src="{{ pro.image.url }}" class="card-img-top" alt="..." style="width: 100%; height: 280px;">
+                <div class="card-body " style="position:relative;">
 					<h5 class="card-title">{{ pro.name }}</h5>
-					<p class="card-text">{{ pro.description }}</p>
-					<a href="{% url 'product' pro_id=pro.id %}" class="btn btn-warning">Show Details</a>
+					<p class="card-text text-truncate">{{ pro.description }}</p>
+					<a href="{% url 'product' pro_id=pro.id %}" class="btn btn-warning" style="position: absolute; left:10px; bottom: 10px;">Show Details</a>
                 </div>
               </div>
             </div>
